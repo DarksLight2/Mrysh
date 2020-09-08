@@ -1,0 +1,21 @@
+AddDefaultCharset UTF-8
+
+RewriteEngine on
+
+#Pages
+
+RewriteRule ^first_attack/?$ /firstAttack.php [L,QSA]
+RewriteRule ^arena/?$ /arena.php [L,QSA]
+RewriteRule ^shop/?$ /shop.php [L,QSA]
+RewriteRule ^set_quality/?$ /set_quality.php [L,QSA]
+RewriteRule ^complect/([0-9]*)/?$ /set_quality.php?complect=$1 [L,QSA]
+RewriteRule ^items/?$ /items.php [L,QSA]
+
+RewriteRule ^hero/?$ /hero.php [L,QSA]
+RewriteRule ^save/?$ /save.php [L,QSA]
+
+RewriteRule ^lair/?$ /lair.php [L,QSA]
+#Handles
+
+RewriteRule ^login/?$ /app/handlesForm/login.php [L,QSA]
+RewriteRule ^save_player/?$ /app/handlesForm/save_player.php [L,QSA]
