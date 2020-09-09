@@ -39,7 +39,7 @@ if($UserData)
     User::newLevel();
 ?>
     <div id="header" style="ov_h"><div class="cntr small lorange mt5 mb5" style="position: relative">
-            <img class="icon" src="http://144.76.127.94/view/image/icons/strength.png"> <?=$UserData['strength']?>	<img class="icon" src="http://144.76.127.94/view/image/icons/health.png"> <?=$UserData['health']?>	<img class="icon" src="http://144.76.127.94/view/image/icons/defense.png"> <?=$UserData['defence']?>
+            <img class="icon" src="http://144.76.127.94/view/image/icons/strength.png"> <?=(isset($_SESSION['train']['strength'])) ? '<span class="win">'.$UserData['strength'].'</span>' : $UserData['strength']?>	<img class="icon" src="http://144.76.127.94/view/image/icons/health.png"> <?=(isset($_SESSION['train']['health'])) ? '<span class="win">'.$UserData['health'].'</span>' : $UserData['health']?>	<img class="icon" src="http://144.76.127.94/view/image/icons/defense.png"> <?=(isset($_SESSION['train']['defence'])) ? '<span class="win">'.$UserData['defence'].'</span>' : $UserData['defence']?>
 
 
         </div>

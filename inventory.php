@@ -52,7 +52,6 @@ else
 
     foreach ($ItemsData as $Key => $Item)
     {
-
         $IsTypeItemEquip = null;
 
         if($EquipItems !== false)

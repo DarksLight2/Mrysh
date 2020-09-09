@@ -14,6 +14,7 @@ RewriteRule ^items/?$ /items.php [L,QSA]
 RewriteRule ^hero/?$ /hero.php [L,QSA]
 RewriteRule ^save/?$ /save.php [L,QSA]
 RewriteRule ^chest/?$ /inventory.php [L,QSA]
+RewriteRule ^train/?$ /train.php [L,QSA]
 
 
 RewriteRule ^lair/?$ /lair.php [L,QSA]
