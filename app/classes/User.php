@@ -278,8 +278,8 @@ class User
                 $ItemsForManeken[$value['type']] = $value['item'];
             }
         }
-        
-        return '<img width="'.$Size[0].'" height="'.$Size[1].'" src="http://mrush.loc/maneken/'.self::getUserDataByID($UserID, 'gender')['gender'].'/'.$ItemsForManeken[0].'/'.$ItemsForManeken[1].'/'.$ItemsForManeken[2].'/'.$ItemsForManeken[3].'/'.$ItemsForManeken[4].'/'.$ItemsForManeken[5].'/'.$ItemsForManeken[6].'/'.$ItemsForManeken[7].'" alt="Маникен">';
+
+        return '<img width="'.$Size[0].'" height="'.$Size[1].'" src="/maneken/'.self::getUserDataByID($UserID, 'gender')['gender'].'/'.$ItemsForManeken[0].'/'.$ItemsForManeken[1].'/'.$ItemsForManeken[2].'/'.$ItemsForManeken[3].'/'.$ItemsForManeken[4].'/'.$ItemsForManeken[5].'/'.$ItemsForManeken[6].'/'.$ItemsForManeken[7].'" alt="Маникен">';
 
     }
 }
