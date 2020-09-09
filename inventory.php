@@ -4,6 +4,7 @@ require_once './app/configs/systemSettigns.php';
 
 use app\classes\User;
 use app\classes\Inventory;
+use app\classes\Items;
 
 if(User::userData() === false)
 {
@@ -34,6 +35,15 @@ if(Inventory::GetAmountItems() === 0)
 }
 else
 {
+    $InventoryItems = Inventory::GetItems();
+    $ItemsData = Items::GetItemsData($InventoryItems);
+
+    var_dump($ItemsData);
+
+    foreach ($ItemsData as $Key => $Item)
+    {
+
+
 ?>
     <div class="bdr cnr bg_blue mb2">
         <div class="wr1">
@@ -48,7 +58,7 @@ else
                                         <div class="fl ml5 mt5 mr5 w48px">
 
                                             <div class="fl h48">
-                                                <a href="/view_player_item?player_id=10528964&amp;id=1421006985&amp;type=cloth&amp;PHPSESSID=d551b1bdd58b9ac9c04e4be25522e9ac.1599602725.78752281"><img class="item_icon" width="48" height="48" src="http://144.76.127.94/view/image/item/17_head.png"></a>
+                                                <a href="/view_player_item?id=<?=$Item['id']?>"><img class="item_icon" width="48" height="48" src="http://144.76.127.94/view/image/item/<?=$Item['id']?>_head.png"></a>
                                             </div>
 
                                             <div class="clb"></div>
@@ -56,16 +66,16 @@ else
                                         </div>
 
                                         <div class="ml58 mt5 mb5 sh small">
-                                            <a href="/view_player_item?player_id=10528964&amp;id=1421006985&amp;type=cloth&amp;PHPSESSID=d551b1bdd58b9ac9c04e4be25522e9ac.1599602725.78752281">Шлем Ополченца</a>
+                                            <a href="/view_player_item?id=<?=$Item['id']?>"><?=$Item['name']?></a>
                                         </div>
 
                                         <div class="ml58 mt5 mb5 sh small">
-                                            <img class="icon" src="http://144.76.127.94/view/image/quality_cloth/1.png"> <span class="q1">Обычный [1/5]</span>
+                                            <img class="icon" src="http://144.76.127.94/view/image/quality_cloth/<?=$Item['quality']?>.png"> <span class="q1">Обычный [1/5]</span>
                                         </div>
 
                                         <div class="ml58 mt5 mb5 sh small">
 
-                                            <a class="sell_link" href="/join_item?id=1421006985&amp;reforge=1&amp;page=1&amp;PHPSESSID=d551b1bdd58b9ac9c04e4be25522e9ac.1599602725.78752281">Разобрать</a>
+                                            <a class="sell_link" href="/join_item?id=<?=$Item['id']?>">Разобрать</a>
 
                                         </div>
 
@@ -81,6 +91,8 @@ else
         </div>
     </div>
 <?php
+
+    }
 }
 ?>
 <div class="hr_g mb2"><div><div></div></div></div>
