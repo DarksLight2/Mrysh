@@ -15,7 +15,7 @@ $PathImages = $_SERVER['DOCUMENT_ROOT'].'/view/image/maneken/'.$Gender.'/';
 
 if(isset($_GET))
 {
-    $Human  = imageCreateFromPng('/view/image/maneken/'.$Gender.'.png');
+    $Human  = imageCreateFromPng($_SERVER['DOCUMENT_ROOT'].'/view/image/maneken/'.$Gender.'.png');
 
     $Height  = imagesy($Human); // высота изображения
     $Width  = imagesx($Human); // ширина изображения
