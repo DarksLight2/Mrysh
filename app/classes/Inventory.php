@@ -9,14 +9,21 @@ class Inventory
 
     }
 
-    public static function GetAmountItems($UserID = null): int
+    public static function GetAmountItems($UserID = null, $Equip = null): int
     {
         if($UserID === null)
         {
             $UserID = User::userData()['id'];
         }
 
-        return DataBase::query('SELECT * FROM `inventory` WHERE `userID` = ?', [$UserID])->num_rows;
+        if($Equip === null)
+        {
+            return DataBase::query('SELECT * FROM `inventory` WHERE `userID` = ?', [$UserID])->num_rows;
+        }
+        else
+        {
+            return DataBase::query('SELECT * FROM `inventory` WHERE `userID` = ? AND `equip` = ?', [$UserID, $Equip])->num_rows;
+        }
     }
 
     public static function GetItems($UserID = null, $Equip = null)

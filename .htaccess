@@ -17,7 +17,7 @@ RewriteRule ^chest/?$ /inventory.php [L,QSA]
 RewriteRule ^train/?$ /train.php [L,QSA]
 RewriteRule ^maneken/?$ /maneken.php [L,QSA]
 RewriteRule ^maneken/([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/?$ /maneken.php?gender=$1&head=$2&shoulders=$3&armor=$4&gloves=$5&right_hand=$6&left_hande=$7&pants=$8&boots=$9 [L,QSA]
-
+RewriteRule ^avatar/?$ /avatar.php [L,QSA]
 
 RewriteRule ^lair/?$ /lair.php [L,QSA]
 #Handles

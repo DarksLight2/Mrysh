@@ -1,7 +1,5 @@
 <?php
 
-require_once 'systemSettigns.php';
-
 use app\classes\DataBase;
 use app\classes\User;
 use app\classes\Lair;

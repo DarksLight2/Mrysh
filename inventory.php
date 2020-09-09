@@ -32,7 +32,7 @@ if(Inventory::GetAmountItems() > 0 && isset($_GET['wear_item']) && is_numeric($_
 
 require_once './header.php';
 
-if(Inventory::GetAmountItems() === 0)
+if(Inventory::GetAmountItems(null, 0) === 0)
 {
 ?>
     <div class="bdr cnr bg_blue mb2"><div class="wr1"><div class="wr2"><div class="wr3"><div class="wr4"><div class="wr5"><div class="wr6"><div class="wr7"><div class="wr8">
