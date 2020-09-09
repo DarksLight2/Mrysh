@@ -271,11 +271,14 @@ class User
             7 => 0
         ];
 
-        foreach ($EquipItems as $key => $value)
+        if(Inventory::GetAmountItems(null, 1) > 0)
         {
-            $ItemsForManeken[$value['type']] = $value['item'];
+            foreach ($EquipItems as $key => $value)
+            {
+                $ItemsForManeken[$value['type']] = $value['item'];
+            }
         }
-
+        
         return '<img width="'.$Size[0].'" height="'.$Size[1].'" src="http://mrush.loc/maneken/'.self::getUserDataByID($UserID, 'gender')['gender'].'/'.$ItemsForManeken[0].'/'.$ItemsForManeken[1].'/'.$ItemsForManeken[2].'/'.$ItemsForManeken[3].'/'.$ItemsForManeken[4].'/'.$ItemsForManeken[5].'/'.$ItemsForManeken[6].'/'.$ItemsForManeken[7].'" alt="Маникен">';
 
     }
