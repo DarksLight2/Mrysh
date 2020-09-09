@@ -47,7 +47,7 @@ require_once './header.php';
                                                 <td class="w39px"><div class="slot">
                                                     </div></td>
 
-                                                <td colspan="2" rowspan="4"><div class="pic_shd"><a class="nd" href="/avatar"><img src="http://144.76.125.123/maneken/42_0_44_45_46_47_0_48_529587657_avatar0.jpg?1.3.78"></a></div></td>
+                                                <td colspan="2" rowspan="4"><div class="pic_shd"><a class="nd" href="/avatar"><?=User::Maneken($UserData['id'])?></a></div></td>
 
                                                 <td class="w39px"><div class="slot">
                                                     </div></td>
@@ -97,7 +97,7 @@ require_once './header.php';
                                                 <span class="win">
                                                     <?php
 
-                                                        if( ! isset($_GET['userID']) || $_GET['userID'] === User::userData()['id'])
+                                                        if($UserData['login'] == 'Новобранец')
                                                         {
                                                             echo 'Вы';
                                                         }

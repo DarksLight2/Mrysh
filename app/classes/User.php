@@ -255,8 +255,28 @@ class User
         return DataBase::query('SELECT COUNT(*) FROM `users` WHERE `activity` > '.time())->fetch_array();
     }
 
-    public static function maneken($Helmet, $Shoulders, $Armor, $Gloves, $Pants, $Boots, $LeftHand, $RightHand)
+    public static function Maneken($UserID = null, $Size = [120, 160])
     {
+
+        $EquipItems = Inventory::GetItems($UserID, 1);
+
+        $ItemsForManeken = [
+            0 => 0,
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+            6 => 0,
+            7 => 0
+        ];
+
+        foreach ($EquipItems as $key => $value)
+        {
+            $ItemsForManeken[$value['type']] = $value['item'];
+        }
+
+        return '<img width="'.$Size[0].'" height="'.$Size[1].'" src="http://mrush.loc/maneken/'.self::getUserDataByID($UserID, 'gender')['gender'].'/'.$ItemsForManeken[0].'/'.$ItemsForManeken[1].'/'.$ItemsForManeken[2].'/'.$ItemsForManeken[3].'/'.$ItemsForManeken[4].'/'.$ItemsForManeken[5].'/'.$ItemsForManeken[6].'/'.$ItemsForManeken[7].'" alt="Маникен">';
 
     }
 }
