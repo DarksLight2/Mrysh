@@ -4,6 +4,7 @@ require_once 'systemSettigns.php';
 
 use app\classes\DataBase;
 use app\classes\User;
+use app\classes\Lair;
 
 if(User::userData() !== false)
 {
@@ -14,8 +15,14 @@ if(User::userData() !== false)
 	# Конец кулдауна Арены
 	if(User::userData()['arena_cooldown'] < time() && User::userData()['arena_fights'] == 0)
 	{
-		DataBase::query('UPDATE `users` SET `arena_fights` = 2 WHERE `id` = ? LIMIT 1', [User::userData()['id']]);
+		DataBase::query('UPDATE `users` SET `arena_fights` = 15 WHERE `id` = ? LIMIT 1', [User::userData()['id']]);
 	}
+
+    # Конец кулдауна Lair
+    if(Lair::GetData()['cooldown'] < time() && Lair::GetData()['fights'] == 0)
+    {
+        DataBase::query('UPDATE `lair_users` SET `fights` = 2 WHERE `userID` = ? LIMIT 1', [User::userData()['id']]);
+    }
 	
 	/*
 	if(User::userData()['health'] != User::userData()['max_health'])

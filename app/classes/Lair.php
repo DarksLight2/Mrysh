@@ -62,7 +62,7 @@ class Lair
 
                     $MobData = self::GetMob(1);
 
-                    DataBase::query('INSERT INTO `lair_users` (`lair_mob`, `userID`, `health_mob`, `start`, `fights`, `cooldown`) VALUES (?, ?, ?, ?, ?, ?)', [1, User::userData()['id'], $MobData['health'], 0, 2, 0]);
+                    DataBase::query('INSERT INTO `lair_users` (`lair_mob`, `userID`, `health_mob`, `health_user`, `start`, `fights`, `cooldown`) VALUES (?, ?, ?, ?, ?, ?, ?)', [1, User::userData()['id'], $MobData['health'], User::userData()['health'], 0, 2, 0]);
 
                     $Lair = DataBase::query('SELECT * FROM `lair_users` WHERE `userID` = ?', [User::userData()['id']]);
 
@@ -82,7 +82,7 @@ class Lair
     {
         if(self::GetData()['start'] == 0)
         {
-            DataBase::query('UPDATE `lair_users` SET `start` = 1 WHERE `userID` = ?', [User::userData()['id']]);
+            DataBase::query('UPDATE `lair_users` SET `start` = 1, `health_mob` = ?, `health_user` = ?, `damage_user` = 0 WHERE `userID` = ?', [self::GetMob(self::GetData()['lair_mob'])['health'], User::userData()['health'], User::userData()['id']]);
 
             return true;
         }
@@ -97,19 +97,17 @@ class Lair
         $UserDamage = Fights::getDamage($MobData['defence']);
         $MobDamage = Fights::getDamage(User::userData()['defence']);
 
-        DataBase::query('UPDATE `users` SET `health` = `health` - ? WHERE `id` = ?', [$MobDamage, User::userData()['id']]);
-        DataBase::query('UPDATE `lair_users` SET `health_mob` = `health_mob` - ? WHERE `userID` = ?', [$UserDamage, User::userData()['id']]);
+        DataBase::query('UPDATE `lair_users` SET `health_mob` = `health_mob` - ?, `health_user` = `health_user` - ?, `damage_user` = `damage_user` + ? WHERE `userID` = ?', [$UserDamage, $MobDamage, $UserDamage, User::userData()['id']]);
 
-        if($LairData['health_mob'] <= 0)
+        if(($LairData['health_mob'] - $UserDamage) <= 0)
         {
-            $_SESSION['lair'] = 'win';
+            $_SESSION['lair']['end'] = 'win';
 
             return true;
         }
-
-        if($UserData['health'] <= 0)
+        elseif(($LairData['health_user'] - $MobDamage) <= 0)
         {
-            $_SESSION['lair'] = 'lose';
+            $_SESSION['lair']['end'] = 'lose';
 
             return true;
         }
@@ -117,5 +115,32 @@ class Lair
 
         $_SESSION['lair']['MobDamage'] = $MobDamage;
         $_SESSION['lair']['UserDamage'] = $UserDamage;
+    }
+
+    public static function EndBattle($Status)
+    {
+        $Cooldown = time() + (3600 * 2);
+
+        if($Status == 'win')
+        {
+            $StatusNum = 1;
+            $Gold = self::GetMob(self::GetData()['lair_mob'])['gold'];
+
+            DataBase::query('UPDATE `lair_users` SET `fights` = `fights` - 1, `start` = 0, `lair_mob` = `lair_mob` + 1, `cooldown` = ? WHERE `id` = ?', [$Cooldown, self::GetData()['id']]);
+        }
+        else
+        {
+            $StatusNum = 2;
+            $Gold = 2;
+
+            DataBase::query('UPDATE `lair_users` SET `fights` = `fights` - 1, `health_user` = ?, `health_mob` = ? , `cooldown` = ? WHERE `id` = ?', [User::userData()['health'], self::GetMob(self::GetData()['lair_mob'])['health'], $Cooldown, self::GetData()['id']]);
+        }
+
+        $Rewards = Fights::getRewards($StatusNum, self::GetData()['damage_user'], User::userData()['level'], false, $Gold, true);
+
+        DataBase::query('UPDATE `users` SET `gold` = `gold` + ?, `exp` = `exp` + ? WHERE `id` = ?', [$Rewards['Gold'], $Rewards['Exp'], User::userData()['id']]);
+
+        return $Rewards;
+
     }
 }

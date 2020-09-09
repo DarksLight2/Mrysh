@@ -7,12 +7,13 @@
 
 namespace app\classes;
 
+use Exception;
 use mysqli;
 
 define('HOST', 'localhost');      // Сервер подключения
-define('USERNAME', 'artem_lazar');  // Имя пользователя
-define('PASSWORD', 'Mrysh.mobiDataBase');  // Пароль
-define('DBNAME', 'mrysh');    // Название базы данных
+define('USERNAME', 'root');  // Имя пользователя
+define('PASSWORD', 'root');  // Пароль
+define('DBNAME', 'mrush');    // Название базы данных
 define('CHARSET', 'utf8');        // Кодировка
 
 class DataBase
@@ -67,7 +68,19 @@ class DataBase
         {
             $stmt = self::getInstance()->prepare($query); // Подготавливаем запрос
 
-            call_user_func_array([$stmt, 'bind_param'], self::getParamsAndTypesInArray($params));
+            if( ! call_user_func_array([$stmt, 'bind_param'], self::getParamsAndTypesInArray($params)))
+            {
+                echo '<br>';
+                echo '<br>';
+                var_dump($stmt);
+                echo '<br>';
+                var_dump(self::getParamsAndTypesInArray($params));
+                echo '<br>';
+
+                echo 'Запрос '.$query;
+                echo '<br>';
+                echo '<br>';
+            }
 
             $stmt->execute(); // Выполняем запрос
 

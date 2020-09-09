@@ -20,6 +20,12 @@ if(User::userData() === false)
     exit();
 }
 
+if(Lair::GetData()['cooldown'] > time() && Lair::GetData()['fights'] <= 0)
+{
+    header('Location: /');
+    exit;
+}
+
 if(isset($_GET['action']) && $_GET['action'] == 'enter')
 {
     Lair::EnterInFight();
@@ -34,6 +40,9 @@ $MobData = Lair::GetMob($LairData['lair_mob']);
 if(isset($_GET['action']) && $_GET['action'] == 'attack')
 {
     Lair::attack($MobData, $LairData);
+
+    header('Location: /lair');
+    exit;
 }
 
 $title = $MobData['place'];
@@ -42,7 +51,7 @@ require_once './header.php';
 
 if(isset($_SESSION['lair']['end']))
 {
-    $Rewards = Fights::getRewards($_SESSION['lair']['end'], $_SESSION['lair']['UserDamage'], User::userData()['level'], false, 2, true);
+    $Rewards = Lair::EndBattle($_SESSION['lair']['end']);
 
     $Text = 'Вы отступили.<br>
                 Возвращайтесь когда станете сильнее';
@@ -71,10 +80,15 @@ if(isset($_SESSION['lair']['end']))
         </div>
     </div>
 <?php
-}
 
-if($LairData['start'] === 0)
+    unset($_SESSION['lair']);
+
+}
+else
 {
+
+    if($LairData['start'] === 0)
+    {
 ?>
 
 <div class="bdr bg_blue"><div class="wr1"><div class="wr2"><div class="wr3"><div class="wr4"><div class="wr5"><div class="wr6"><div class="wr7"><div class="wr8">
@@ -93,11 +107,9 @@ if($LairData['start'] === 0)
 <div class="cntr"><a href="/lair?action=enter" class="ubtn inbl mt-15 red mb5"><span class="ul"><span class="ur">Начать бой</span></span></a></div>
 
 <?php
-}
-else
-{
-
-    $UserProgressHealth = Fights::progressHealth(User::getUserDataByID()['max_health'], User::getUserDataByID()['health']);
+    }
+    else
+    {
 ?>
     <div class="bdr bg_red">
         <div class="wr1">
@@ -188,13 +200,21 @@ else
                                                 <span class="lorange">
 
 								                    <img src="http://144.76.127.94/view/image/icons/strength.png" class="va_t" height="16" width="16" alt=""> <?=User::userData()['strength']?>
-                                                    <img src="http://144.76.127.94/view/image/icons/health.png" class="va_t" height="16" width="16" alt=""> <?=User::getUserDataByID()['health']?>
+                                                    <img src="http://144.76.127.94/view/image/icons/health.png" class="va_t" height="16" width="16" alt=""> <?=$LairData['health_user']?>
                                                     <img src="http://144.76.127.94/view/image/icons/defense.png" class="va_t" height="16" width="16" alt=""> <?=User::userData()['defence']?>
 
                                                 </span>
                                             </div>
 
-                                            <div class="prg-bar fght"><div class="prg-green fl" style="width:<?=$UserProgressHealth?>%;"></div><div class="prg-red fl" style="width:<?=$_SESSION['lair']['ProgressHealthUser'] - $UserProgressHealth?>%;"></div></div></div>
+                                            <div class="prg-bar fght">
+
+                                                <div class="prg-green fl" style="width:<?=Fights::progressHealth(User::userData()['health'], $LairData['health_user'])?>%;"></div>
+
+                                                <div class="prg-red fl" style="width:<?=$_SESSION['lair']['ProgressHealthUser'] - Fights::progressHealth(User::userData()['health'], $LairData['health_user'])?>%;"></div>
+
+                                            </div>
+                                        </div>
+
                                         <div class="clb"></div>
 
                                     </div>
@@ -207,7 +227,11 @@ else
         </div>
     </div>
 <?php
-}
+
+    $_SESSION['lair']['ProgressHealthMob'] = Fights::progressHealth($MobData['health'], $LairData['health_mob']);
+    $_SESSION['lair']['ProgressHealthUser'] = Fights::progressHealth(User::userData()['health'], $LairData['health_user']);
+
+    }
 ?>
     <div class="hr_g mb2"><div><div></div></div></div>
 
@@ -216,10 +240,12 @@ else
 
     <div class="hr_g mb2"><div><div></div></div></div>
 <?php
-$_SESSION['lair']['ProgressHealthMob'] = Fights::progressHealth($MobData['health'], $LairData['health_mob']);
-$_SESSION['lair']['ProgressHealthUser'] = $UserProgressHealth;
 
-unset($_SESSION['lair']['UserDamage']);
-unset($_SESSION['lair']['MobDamage']);
+    if((5 + User::userData()['last_update']) <= time())
+    {
+        unset($_SESSION['lair']['UserDamage']);
+        unset($_SESSION['lair']['MobDamage']);
+    }
+}
 
 require_once './footer.php';

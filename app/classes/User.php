@@ -235,11 +235,19 @@ class User
     {
         $UserData = DataBase::query('SELECT `exp` FROM `users` WHERE `id` = ?', [self::userData()['id']])->fetch_assoc();
 
+        $Return = 0;
+
         if($UserData['exp'] > 0)
         {
-            return floor( 100 / (self::levels() / $UserData['exp']));
+            $Return = floor( 100 / (self::levels() / $UserData['exp']));
         }
-        return 0;
+
+        if($Return > 100)
+        {
+            $Return = 100;
+        }
+
+        return $Return;
     }
 
     public static function amountUsersOnline()

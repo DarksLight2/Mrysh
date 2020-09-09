@@ -1,20 +1,20 @@
-function getTimeLeft()
+function getTimeLeft(where)
 {
     $.ajax({
         url: '/app/handlesAjax/getTimeLeft.php',
         type: 'POST',
         data: {
-            where: 'arena'
+            where: where
         },
         success: function (data){
 
             if (data == 'end')
             {
-                location.reload();
+                //location.reload();
             }
             else
             {
-                $("#cooldown_arena").text(data);
+                $("#cooldown_"+where).text(data);
             }
         },
         beforeSend: function (){

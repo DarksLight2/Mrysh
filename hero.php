@@ -4,6 +4,7 @@ require_once './app/configs/systemSettigns.php';
 
 use app\classes\SiteSettigns;
 use app\classes\User;
+use \app\classes\Inventory;
 
 if(User::userData() === false)
 {
@@ -150,7 +151,7 @@ else
 <div class="hr_g mb2"><div><div></div></div></div>
 
 <a class="mbtn mb2" href="/view_gear?player_id=8233419"><img src="http://144.76.127.94/view/image/icons/slots.png" class="icon"> Снаряжение <span class="text_vmenu">(8 из 8)</span></a>
-<a class="mbtn mb2" href="/view_amulet?player_id=8233419"><img class="icon" src="http://144.76.127.94/view/image/icons/amulet.png"> Амулет  (85  из  85)</a>
+<a class="mbtn mb2" href="/chest"><img src="http://144.76.127.94/view/image/icons/bag.png" class="icon"> Сумка <span class="text_vmenu">(<?=Inventory::GetAmountItems()?> из 20)</span></a>
 
 <div class="mb10"></div>
 

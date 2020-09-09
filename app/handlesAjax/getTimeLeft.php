@@ -2,6 +2,7 @@
 
 require_once '../configs/autoLoadClasses.php';
 
+use app\classes\Lair;
 use app\classes\User;
 
 function past_time($unixTime)
@@ -75,6 +76,13 @@ if(isset($_POST))
         if(User::userData())
         {
             echo time_left(User::userData()['arena_cooldown']);
+        }
+    }
+    elseif($_POST['where'] == 'lair')
+    {
+        if(User::userData())
+        {
+            echo time_left(Lair::GetData()['cooldown']);
         }
     }
 }

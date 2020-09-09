@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\classes;
 
 class Inventory
@@ -10,8 +9,21 @@ class Inventory
 
     }
 
-    public static function getItemsInInventory($UserID = null)
+    public static function GetAmountItems($UserID = null): int
     {
+        if($UserID === null)
+        {
+            $UserID = User::userData()['id'];
+        }
+
+        return DataBase::query('SELECT * FROM `inventory` WHERE `userID` = ?', [$UserID])->num_rows;
+
+    }
+
+    public static function GetItems($UserID = null)
+    {
+        $Return = [];
+
         if($UserID === null)
         {
             $UserID = User::userData()['id'];
@@ -23,22 +35,22 @@ class Inventory
         {
             while ($row = $UserInventory->fetch_assoc())
             {
-                $_SESSION['Inventory'][$row['id']] = $row;
+                $Return[] = $row;
             }
 
-            return true;
+            return $Return;
         }
 
-        return 'not exist items.';
+        return false;
 
     }
 
-    public static function addItemInInventory($ItemID ,$UserID = null)
+    public static function AddItem($ItemID ,$UserID = null)
     {
 
     }
 
-    public static function deleteItemInInventory($ItemID ,$UserID = null)
+    public static function DeleteItem($ItemID ,$UserID = null)
     {
 
     }

@@ -16,7 +16,30 @@ use app\classes\Lair;
 if(User::userData())
 {
 
-    $Mob = Lair::GetMob(Lair::GetData()['lair_mob']);
+    if(Lair::GetData()['cooldown'] > time())
+    {
+?>
+        <script>
+            setInterval(function (){
+                getTimeLeft('lair');
+            }, 1000);
+        </script>
+
+        <div class="bdr cnr bg_blue mb2 bl nd">
+
+            <div class="wr1"><div class="wr2"><div class="wr3"><div class="wr4"><div class="wr5"><div class="wr6"><div class="wr7"><div class="wr8">
+                                            <div class="fl ml10 mt10 mr10">
+                                                <img src="http://144.76.127.94/view/image/lair/grey_lair5.png">		</div>
+                                            <div class="ml10 mt10 mb10 mr10 sh small" id="groupTimer_index_lair"><span class="grey1">Кладбище откроется через <span id="cooldown_lair">[загрузка...]</span> </span></div>
+                                            <div class="clb"></div>
+                                        </div></div></div></div></div></div></div></div>
+
+        </div>
+<?php
+    }
+    else
+    {
+        $Mob = Lair::GetMob(Lair::GetData()['lair_mob']);
 ?>
     <a href="/lair" class="bdr cnr bg_blue mb2 bl nd">
 
@@ -30,12 +53,13 @@ if(User::userData())
 
     </a>
 <?php
+    }
     if(User::userData()['arena_cooldown'] > time())
     {
 ?>
         <script>
             setInterval(function (){
-                getTimeLeft();
+                getTimeLeft('arena');
             }, 1000);
         </script>
 

@@ -22,19 +22,13 @@ if(User::userData() === false)
 
 if(isset($_GET['attack']))
 {
-	if(User::userdata()['health'] < (User::userdata()['max_health'] / 10))
-	{
-		echo 'Минимальное количество здоровья 10%';
-	}
-	else
-	{
-		Arena::attack();
 
-		header('Location: /arena');
+    Arena::attack();
 
-		exit();
-	}
-    
+    header('Location: /arena');
+
+    exit();
+
 }
 
 Fights::getEnemy('arena');
@@ -102,7 +96,7 @@ else
                                         </div>
 
                                         <div class="ml130 mt10 mb10 mr10 sh">
-                                            <span class="lwhite tdn"><img class="icon" src="http://144.76.127.94/view/image/icons/hero.png"> <?=$_SESSION['arena']['Enemy']['login']?></span><br> <br><img class="icon" src="http://144.76.127.94/view/image/icons/strength.png"> Сила: <?=$_SESSION['arena']['Enemy']['strength']?><br><img class="icon" src="http://144.76.127.94/view/image/icons/health.png"> Здоровье: <?=$_SESSION['arena']['Enemy']['max_health']?><br><img class="icon" src="http://144.76.127.94/view/image/icons/defense.png"> Броня: <?=$_SESSION['arena']['Enemy']['defence']?><br>			</div>
+                                            <span class="lwhite tdn"><img class="icon" src="http://144.76.127.94/view/image/icons/hero.png"> <?=$_SESSION['arena']['Enemy']['login']?></span><br> <br><img class="icon" src="http://144.76.127.94/view/image/icons/strength.png"> Сила: <?=$_SESSION['arena']['Enemy']['strength']?><br><img class="icon" src="http://144.76.127.94/view/image/icons/health.png"> Здоровье: <?=$_SESSION['arena']['Enemy']['health']?><br><img class="icon" src="http://144.76.127.94/view/image/icons/defense.png"> Броня: <?=$_SESSION['arena']['Enemy']['defence']?><br>			</div>
                                         <div class="clb"></div>
                                     </div></div></div></div></div></div></div></div></div>
 
