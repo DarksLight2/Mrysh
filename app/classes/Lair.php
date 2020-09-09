@@ -12,8 +12,13 @@ class Lair
     {
     }
 
-    public static function GetMob($MobID)
+    public static function GetMob($MobID = null)
     {
+        if($MobID === null)
+        {
+            $MobID = self::GetData()['lair_mob'];
+        }
+
         $Query = DataBase::query('SELECT * FROM `lair_mobs` WHERE `id` = ?', [$MobID]);
 
         if($Query->num_rows === 1)

@@ -12,10 +12,12 @@ class Items
     {
         if( ! empty($Items))
         {
-
-            foreach ($Items as $Key => $Value)
+            if(self::$ItemsData === null)
             {
-                self::$ItemsData[] = DataBase::query('SELECT * FROM `items` WHERE `id` = ? LIMIT 1', [$Value['id']])->fetch_assoc();
+                foreach ($Items as $Key => $Value)
+                {
+                    self::$ItemsData[] = DataBase::query('SELECT * FROM `items` WHERE `id` = ? LIMIT 1', [$Value['item']])->fetch_assoc();
+                }
             }
 
             return self::$ItemsData;

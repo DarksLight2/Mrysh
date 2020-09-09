@@ -22,6 +22,14 @@ if(User::userData() === false)
 
 $title = 'Сумка';
 
+if(Inventory::GetAmountItems() > 0 && isset($_GET['wear_item']) && is_numeric($_GET['id']))
+{
+
+    Inventory::Equip($_GET['id']);
+
+    header('Location: /chest');
+}
+
 require_once './header.php';
 
 if(Inventory::GetAmountItems() === 0)
@@ -35,13 +43,28 @@ if(Inventory::GetAmountItems() === 0)
 }
 else
 {
-    $InventoryItems = Inventory::GetItems();
-    $ItemsData = Items::GetItemsData($InventoryItems);
 
-    var_dump($ItemsData);
+    $ItemNumber = 0;
+
+    $InventoryItems = Inventory::GetItems(null, 0);
+    $ItemsData = Items::GetItemsData($InventoryItems);
+    $EquipItems = Inventory::GetItems(null, 1);
 
     foreach ($ItemsData as $Key => $Item)
     {
+
+        $IsTypeItemEquip = null;
+
+        if($EquipItems !== false)
+        {
+            foreach ($EquipItems as $Key_2 => $Value)
+            {
+                if($Value['type'] == $Item['type'])
+                {
+                    $IsTypeItemEquip = $Value['id'];
+                }
+            }
+        }
 
 
 ?>
@@ -70,12 +93,25 @@ else
                                         </div>
 
                                         <div class="ml58 mt5 mb5 sh small">
-                                            <img class="icon" src="http://144.76.127.94/view/image/quality_cloth/<?=$Item['quality']?>.png"> <span class="q1">Обычный [1/5]</span>
+                                            <img class="icon" src="http://144.76.127.94/view/image/quality_cloth/<?=$Item['quality']?>.png"> <span class="q1">Обычный [1/5]</span> <?=Inventory::Comparison($InventoryItems[$ItemNumber]['id'], $IsTypeItemEquip)?>
                                         </div>
 
                                         <div class="ml58 mt5 mb5 sh small">
 
-                                            <a class="sell_link" href="/join_item?id=<?=$Item['id']?>">Разобрать</a>
+    <?php
+
+        $Comparison = Inventory::Comparison($InventoryItems[$ItemNumber]['id'], $IsTypeItemEquip, true);
+
+        if($IsTypeItemEquip !== null && $Comparison == 'no_best' || $Comparison == '')
+        {
+            echo '<a class="sell_link" href="?join_item&id='.$InventoryItems[$ItemNumber]['id'].'">Разобрать</a>';
+        }
+        else
+        {
+            echo '<a class="sell_link" href="?wear_item&id='.$InventoryItems[$ItemNumber]['id'].'">Надеть</a>';
+        }
+    ?>
+
 
                                         </div>
 
@@ -91,6 +127,7 @@ else
         </div>
     </div>
 <?php
+        $ItemNumber++;
 
     }
 }

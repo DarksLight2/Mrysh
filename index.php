@@ -30,7 +30,7 @@ if(User::userData())
             <div class="wr1"><div class="wr2"><div class="wr3"><div class="wr4"><div class="wr5"><div class="wr6"><div class="wr7"><div class="wr8">
                                             <div class="fl ml10 mt10 mr10">
                                                 <img src="http://144.76.127.94/view/image/lair/grey_lair5.png">		</div>
-                                            <div class="ml10 mt10 mb10 mr10 sh small" id="groupTimer_index_lair"><span class="grey1">Кладбище откроется через <span id="cooldown_lair">[загрузка...]</span> </span></div>
+                                            <div class="ml10 mt10 mb10 mr10 sh small" id="groupTimer_index_lair"><span class="grey1"><?=Lair::GetMob()['place']?> откроется через <span id="cooldown_lair">[загрузка...]</span> </span></div>
                                             <div class="clb"></div>
                                         </div></div></div></div></div></div></div></div>
 
