@@ -16,7 +16,7 @@ use app\classes\Lair;
 if(User::userData())
 {
 
-    if(Lair::GetData()['cooldown'] > time())
+    if(Lair::GetData()['cooldown'] > time() && Lair::GetData()['fights'] == 0)
     {
 ?>
         <script>

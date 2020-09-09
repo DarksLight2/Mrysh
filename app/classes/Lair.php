@@ -14,7 +14,14 @@ class Lair
 
     public static function GetMob($MobID)
     {
-        return DataBase::query('SELECT * FROM `lair_mobs` WHERE `id` = ?', [$MobID])->fetch_assoc();
+        $Query = DataBase::query('SELECT * FROM `lair_mobs` WHERE `id` = ?', [$MobID]);
+
+        if($Query->num_rows === 1)
+        {
+            return $Query->fetch_assoc();
+        }
+
+        return false;
     }
 
     public static function NamesMobs($MobName, $Type)
@@ -126,7 +133,14 @@ class Lair
             $StatusNum = 1;
             $Gold = self::GetMob(self::GetData()['lair_mob'])['gold'];
 
-            DataBase::query('UPDATE `lair_users` SET `fights` = `fights` - 1, `start` = 0, `lair_mob` = `lair_mob` + 1, `cooldown` = ? WHERE `id` = ?', [$Cooldown, self::GetData()['id']]);
+            $LairMob = 1;
+
+            if(self::GetMob(self::GetData()['lair_mob'] + 1) === false)
+            {
+                $LairMob = 0;
+            }
+
+            DataBase::query('UPDATE `lair_users` SET `fights` = `fights` - 1, `start` = 0, `lair_mob` = `lair_mob` + ?, `cooldown` = ? WHERE `id` = ?', [$LairMob ,$Cooldown, self::GetData()['id']]);
         }
         else
         {
