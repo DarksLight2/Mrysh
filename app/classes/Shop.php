@@ -72,7 +72,7 @@ class Shop
                 <div class="mt8 ml10 shop_lgt">
 			        <div class="fl ml5 mr10 sz0">
 					    <a class="nd" href="/items?set_id='.$Row['id'].'">
-					        <img class="item_icon" height="160" src="" alt="maneken">
+					        '.self::Maneken(self::GetAllItemsFromComplect($Row['id'])).'
 				        </a>
 			        </div>
 			        
@@ -169,6 +169,48 @@ class Shop
         return $Result;
     }
 
+    public static function TextTypeItem($ItemType)
+    {
+        $Return = '';
+
+        $Arr = [
+            0 => 'head',
+            1 => 'shoulders',
+            2 => 'chest',
+            3 => 'gloves',
+            4 => 'offhand',
+            5 => 'mainhand',
+            6 => 'legs',
+            7 => 'boots'
+        ];
+
+        foreach ($Arr as $key => $value)
+        {
+            if($ItemType === $key)
+            {
+                $Return = $value;
+            }
+        }
+
+        return $Return;
+    }
+
+    public static function CostAllInComplect($ComplectID)
+    {
+        $Return = 0;
+
+        $ItemsFromComplect = self::GetAllItemsFromComplect($ComplectID);
+
+        foreach ($ItemsFromComplect as $key => $value)
+        {
+            $ShopData = DataBase::query('SELECT * FROM `shop_items` WHERE `id_item` = ?', [$value])->fetch_assoc();
+
+            $Return += $ShopData['cost'];
+        }
+
+        return $Return;
+    }
+
     public static function ShowItemData($Item)
     {
         if(is_numeric($Item))
@@ -183,16 +225,16 @@ class Shop
                 return '
                     <div class="mt8 ml10 shop_lgt">
 			<div class="fl ml5 mr10 sz0">
-				<a href="/item/viewItem?category=cloth&amp;id=130&amp;set_id=17"><img class="item_icon" src="http://144.76.127.94/view/image/item/17_head.png"></a>
+				<a href="/item/viewItem='.$ItemData['id'].'"><img class="item_icon" src="http://144.76.127.94/view/image/item/'.$ItemData['complect'].'_'.self::TextTypeItem($ItemData['type']).'.png"></a>
 			</div>
 			<div class="ml58 mt5 mb5 sh small">
-				<a href="/item/viewItem?category=cloth&amp;id=130&amp;set_id=17">'.$ItemData['name'].'</a>
+				<a href="/item/viewItem='.$ItemData['id'].'">'.$ItemData['name'].'</a>
 			</div>
 			<div class="ml58 mt5 mb5 sh small">
 				<img class="icon" src="http://144.76.127.94/view/image/quality_cloth/'.$ItemData['quality'].'.png"> <span class="q'.$ItemData['quality'].'">'.self::ShowQuality($ItemData['quality']).' [1/5]</span>
 							</div>
 			<div class="ml58 mt5 sh small">
-					<a class="buy_link" href="/buy?category=cloth&amp;set_id=17&amp;id=130&amp;page=1&amp;r=896">Купить</a><span class="buy_link"> за <img src="http://144.76.127.94/view/image/icons/gold.png" alt="" class="icon">'.$ShopData['cost'].'</span>			</div>
+					<a class="buy_link" href="?buy='.$ItemData['id'].'">Купить</a><span class="buy_link"> за <img src="http://144.76.127.94/view/image/icons/gold.png" alt="" class="icon">'.$ShopData['cost'].'</span>			</div>
 						<div class="clb"></div>
 		</div>
                 ';
@@ -200,6 +242,11 @@ class Shop
         }
 
         return false;
+    }
+
+    public static function Maneken($Items = [])
+    {
+        return '<img width="120" height="160" src="/maneken/'.User::userData()['gender'].'/'.$Items[0].'/'.$Items[1].'/'.$Items[2].'/'.$Items[3].'/'.$Items[4].'/'.$Items[5].'/'.$Items[6].'/'.$Items[7].'" alt="Маникен">';
     }
 }
 

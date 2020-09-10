@@ -5,7 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/app/configs/systemSettigns.php';
 use app\classes\DataBase;
 use app\classes\User;
 
-if(User::userData() === false || User::userData()['gender'] !== null)
+if(User::userData() === false || User::userData()['email'] !== null)
 {
     ?>
     Раздел сайта не доступен для вас.
