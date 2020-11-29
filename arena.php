@@ -89,7 +89,7 @@ else
 
                                             <div class="iqcont3">
                                                 <div class="ieblck29">
-                                                    <a href="/arena/?attack">Маникен</a>
+                                                    <a href="/arena/?attack"><?=User::Maneken($_SESSION['arena']['Enemy']['id'])?></a>
                                                 </div>
                                             </div>
 

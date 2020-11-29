@@ -62,6 +62,14 @@ if(User::userData())
         <div class="cntr"></div>
 
     </div>
+
+    <script>
+            setInterval(function (){
+                if($('#mail_counter_count').text() === '0') {
+                    check_new_messages();
+                }
+            }, 1000)
+    </script>
 <?php
 }
 else

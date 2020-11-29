@@ -15,6 +15,14 @@ use app\classes\Lair;
 
 if(User::userData())
 {
+?>
+<div id="new_message_index" style="display: none">
+    <a href="/view_posters" class="mbtn m2">
+        <img class="icon" src="http://144.76.127.94/view/image/icons/post_new.png" /> Новая почта
+    </a>
+</div>
+    <div class="hr_g mb2"><div><div></div></div></div>
+<?php
 
     if(Lair::GetData()['cooldown'] > time() && Lair::GetData()['fights'] == 0)
     {

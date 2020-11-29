@@ -150,8 +150,8 @@ else
 
 <div class="hr_g mb2"><div><div></div></div></div>
 
-<a class="mbtn mb2" href="/view_gear?player_id=8233419"><img src="http://144.76.127.94/view/image/icons/slots.png" class="icon"> Снаряжение <span class="text_vmenu">(8 из 8)</span></a>
-<a class="mbtn mb2" href="/chest"><img src="http://144.76.127.94/view/image/icons/bag.png" class="icon"> Сумка <span class="text_vmenu">(<?=Inventory::GetAmountItems()?> из 20)</span></a>
+<a class="mbtn mb2" href="/view_gear?player_id=8233419"><img src="http://144.76.127.94/view/image/icons/slots.png" class="icon"> Снаряжение <span class="text_vmenu">(<?=Inventory::GetAmountItems(null, 1)?> из 8)</span></a>
+<a class="mbtn mb2" href="/chest"><img src="http://144.76.127.94/view/image/icons/bag.png" class="icon"> Сумка <span class="text_vmenu">(<?=Inventory::GetAmountItems(null, 0)?> из 20)</span></a>
 
 <div class="mb10"></div>
 

@@ -10,7 +10,7 @@ $Boots = $_GET['boots'];
 $LeftHand = $_GET['left_hand'];
 $RightHand = $_GET['right_hand'];
 
-$ArrItems = [$Head, $Armor, $Shoulders, $Gloves, $Pants, $Boots, $LeftHand, $RightHand];
+$ArrItems = [$Head, $Armor, $Shoulders, $Pants, $Gloves, $Boots, $LeftHand, $RightHand];
 $PathImages = $_SERVER['DOCUMENT_ROOT'].'/view/image/maneken/'.$Gender.'/';
 
 if(isset($_GET))

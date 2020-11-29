@@ -28,7 +28,11 @@ $UserData = User::userData();
         ?></title>
     <link rel="stylesheet" type="text/css" href="chrome-extension://ldbfffpdfgghehkkckifnjhoncdgjkib/styles.css"></head>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/js/pagination.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="/js/pagination_messages.js"></script>
+
     <script src="/js/ajax.js"></script>
 
 <body id="bg">
@@ -38,9 +42,20 @@ if($UserData)
 {
     User::newLevel();
 ?>
+        <script>
+            let user_id = <?=User::userData()['id']?>
+        </script>
     <div id="header" style="ov_h"><div class="cntr small lorange mt5 mb5" style="position: relative">
             <img class="icon" src="http://144.76.127.94/view/image/icons/strength.png"> <?=(isset($_SESSION['train']['strength'])) ? '<span class="win">'.$UserData['strength'].'</span>' : $UserData['strength']?>	<img class="icon" src="http://144.76.127.94/view/image/icons/health.png"> <?=(isset($_SESSION['train']['health'])) ? '<span class="win">'.$UserData['health'].'</span>' : $UserData['health']?>	<img class="icon" src="http://144.76.127.94/view/image/icons/defense.png"> <?=(isset($_SESSION['train']['defence'])) ? '<span class="win">'.$UserData['defence'].'</span>' : $UserData['defence']?>
 
+            <div id="mail_counter" style="position: absolute; top: -1px; right: 0px; display: none;">
+                <div style="float: left">
+                    <a class="fr" href="/view_posters">
+                        <img class="icon" src="http://144.76.127.94/view/image/icons/post_new.png">
+                        <div id="mail_counter_count" style="display: none">0</div>
+                    </a>
+                </div>
+            </div>
 
         </div>
         <div class="hr_g mb2"><div><div></div></div></div>
@@ -85,3 +100,7 @@ if(User::userData() !== false && User::userData()['level'] >= 3 && User::userDat
 <div class="hr_g mb2"><div><div></div></div></div>
 <?php
 }
+?>
+<small>
+    <div id="response" class="pgn nwr" style="color:#eacc54;font-weight:bold;"></div>
+</small>

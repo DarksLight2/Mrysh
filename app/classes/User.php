@@ -2,9 +2,11 @@
 
 namespace app\classes;
 
+use ArrayObject;
+
 class User
 {
-    public static $userData = null;
+    private static $userData = null;
     public static $cookieName = null;
     private static $hash = null;
 
@@ -255,6 +257,17 @@ class User
         return DataBase::query('SELECT COUNT(*) FROM `users` WHERE `activity` > '.time())->fetch_array();
     }
 
+    public static function change_data($arr = [], $user_id = null)
+    {
+        if($user_id === null)
+            $user_id = User::userData()['id'];
+
+        $ActiveRecords = new ActiveRecords('users');
+        $ActiveRecords->update($arr)->where(['id' => $user_id])->execute();
+
+        return true;
+    }
+
     public static function Maneken($UserID = null, $Size = [120, 160])
     {
 
@@ -271,11 +284,14 @@ class User
             7 => 0
         ];
 
-        if(Inventory::GetAmountItems(null, 1) > 0)
+        if(Inventory::GetAmountItems($UserID, 1) > 0)
         {
-            foreach ($EquipItems as $key => $value)
-            {
-                $ItemsForManeken[$value['type']] = $value['item'];
+            foreach ($EquipItems->data as $value) {
+                $item_data = Items::get_item_data($value->id, true);
+
+                if($item_data->equip === 1) {
+                    $ItemsForManeken[$item_data->type_number] = $item_data->item_id;
+                }
             }
         }
 

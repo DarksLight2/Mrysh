@@ -1,19 +1,13 @@
 <?php
 
-/*
- Singleton подключение к базе данных.
- By DarksLight2
- */
-
 namespace app\classes;
 
-use Exception;
 use mysqli;
 
 define('HOST', 'localhost');      // Сервер подключения
-define('USERNAME', 'root');  // Имя пользователя
-define('PASSWORD', 'root');  // Пароль
-define('DBNAME', 'mrush');    // Название базы данных
+define('USERNAME', 'root');       // Имя пользователя
+define('PASSWORD', 'root');       // Пароль
+define('DBNAME', 'mrush');        // Название базы данных
 define('CHARSET', 'utf8');        // Кодировка
 
 class DataBase
@@ -24,36 +18,32 @@ class DataBase
 
     private function __clone() {}
 
-    public static function getInstance()
+    private static function getInstance()
     {
-        if(self::$instance === null)
-        {
+        if(self::$instance === null) {
             self::$instance = new mysqli(HOST, USERNAME, PASSWORD, DBNAME);
             self::$instance->set_charset(CHARSET);
         }
+
         return self::$instance;
     }
 
-    public static function getParamsAndTypesInArray($params) // Разделяем полученый массив, и получаем типы данных
+    private static function getParamsAndTypesInArray($params) // Разделяем полученый массив, и получаем типы данных
     {
         $result = [];
         $types = '';
 
-        foreach($params as $key => $value)
-        {
+        foreach($params as $key => $value) {
             $result[$key] = &$params[$key];
 
             if(is_numeric($value))
-            {
                 $types .= 'i';
-            }
             else
-            {
                 $types .= 's';
-            }
         }
 
         array_unshift($result, $types);
+
         return $result;
     }
 
@@ -68,8 +58,7 @@ class DataBase
         {
             $stmt = self::getInstance()->prepare($query); // Подготавливаем запрос
 
-            if( ! call_user_func_array([$stmt, 'bind_param'], self::getParamsAndTypesInArray($params)))
-            {
+            if( ! call_user_func_array([$stmt, 'bind_param'], self::getParamsAndTypesInArray($params))) {
                 echo '<br>';
                 echo '<br>';
                 var_dump($stmt);
@@ -85,15 +74,11 @@ class DataBase
             $stmt->execute(); // Выполняем запрос
 
             if(!empty($stmt->error) || !empty(self::getInstance()->error)) // Проверка на ошибки
-            {
                 echo 'Ошибка в запросе к базе данных. <small><i>['.self::getInstance()->error.']</i></small>';
-            }
 
             return $stmt->get_result(); // Получаем результат
         }
         else
-        {
             return self::getInstance()->query($query);
-        }
     }
 }

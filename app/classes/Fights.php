@@ -75,10 +75,11 @@ class Fights
             ];
         }
 
-        $Enemy = DataBase::query('SELECT * FROM `users` WHERE `strength` + `defence` + `health` >= ? OR `strength` + `defence` + `health` <= ? ORDER BY RAND() LIMIT 1',
+        $Enemy = DataBase::query('SELECT * FROM `users` WHERE `strength` + `defence` + `health` >= ? OR `strength` + `defence` + `health` <= ? AND `id` != ? ORDER BY RAND() LIMIT 1',
             [
                 ($UserParams['strength'] + $UserParams['defence'] + $UserParams['health'] * 2),
-                ($UserParams['strength'] + $UserParams['defence'] + $UserParams['health'] * 2)
+                ($UserParams['strength'] + $UserParams['defence'] + $UserParams['health'] * 2),
+                User::userData()['id']
             ]);
 
         if($Enemy->num_rows === 1)
