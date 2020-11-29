@@ -4,7 +4,7 @@ require_once './app/configs/systemSettigns.php';
 
 use app\classes\User;
 
-if(User::userData() === false || User::userData()['gender'] !== null)
+if(User::userData() === false || User::userData()['email'] !== null)
 {
     ?>
     Раздел сайта НЕ доступен для авторизированых игроков.
