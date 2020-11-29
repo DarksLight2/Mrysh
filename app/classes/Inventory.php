@@ -46,13 +46,17 @@ class Inventory
 
     }
 
-    public static function search_similar_equip_item($type_item)
+    public static function search_similar_equip_item($type_item, $user_id = null)
     {
         $ActiveRecords = new ActiveRecords('inventory');
 
+        if($user_id === null)
+            $user_id = User::userData()['id'];
+
         $item = $ActiveRecords->select()->where([
-            'type'  => $type_item,
-            'equip' => 1
+            'type'   => $type_item,
+            'equip'  => 1,
+            'userID' => $user_id
         ])->execute();
 
         if($item->count_rows === 1)
@@ -211,11 +215,14 @@ class Inventory
 
     public static function join_items($items_to_disassemble = [])
     {
-        $i = 0;
+        $return = [];
 
         foreach ($items_to_disassemble as $item_id_to_disassemble) {
 
-            $item_data  = Items::get_item_data($item_id_to_disassemble->id, true);
+            if(gettype($item_id_to_disassemble) === 'object')
+                $item_id_to_disassemble = $item_id_to_disassemble->id;
+
+            $item_data  = Items::get_item_data($item_id_to_disassemble, true);
             $equip_item = Inventory::search_similar_equip_item($item_data->type_number);
 
             if($equip_item->result === true) {
@@ -261,20 +268,31 @@ class Inventory
                         'defence'    => $defence
                     ]);
 
-                    //Inventory::DestroyItem($item_id_to_disassemble->id);
+                    Inventory::DestroyItem($item_id_to_disassemble);
 
-                    $_SESSION['disassemble_items_data'][$i]['id']          = $equip_data->inv_id;
-                    $_SESSION['disassemble_items_data'][$i]['name']        = $equip_data->name;
-                    $_SESSION['disassemble_items_data'][$i]['img']         = $equip_data->img;
-                    $_SESSION['disassemble_items_data'][$i]['quality']     = '<img class="icon" src="/view/image/quality_cloth/'.$equip_data->quality_number.'.png"> <span class="q'.$equip_data->quality_number.'">'.$equip_data->quality_name.' ['.$level_item.'/'.$equip_data->max_level.']</span>';
-                    $_SESSION['disassemble_items_data'][$i]['exp']         = Items::get_exp_to_disassemble($item_data->current_level);
-                    $_SESSION['disassemble_items_data'][$i]['level']       = $level_item;
-                    $_SESSION['disassemble_items_data'][$i]['current_exp'] = $exp;
-
+                    if(count($items_to_disassemble) === 1) {
+                        $return['id']          = $equip_data->inv_id;
+                        $return['name']        = $equip_data->name;
+                        $return['img']         = $equip_data->img;
+                        $return['quality']     = '<img class="icon" src="/view/image/quality_cloth/' . $equip_data->quality_number . '.png"> <span class="q' . $equip_data->quality_number . '">' . $equip_data->quality_name . ' [' . $level_item . '/' . $equip_data->max_level . ']</span>';
+                        $return['exp']         = $equip_data->exp + Items::get_exp_to_disassemble($item_data->current_level) + $item_data->exp;
+                        $return['level']       = $level_item;
+                        $return['current_exp'] = $exp;
+                    } else {
+                        if($level_item > $equip_data->current_level) {
+                            $return['data']['new_level'][$equip_data->inv_id]['name']   = $equip_data->name;
+                            $return['data']['new_level'][$equip_data->inv_id]['level']  = $level_item;
+                        } else {
+                            $return['data']['upgrade'][$equip_data->inv_id]['name']      = $equip_data->name;
+                            $return['data']['upgrade'][$equip_data->inv_id]['level']     = $level_item;
+                            $return['data']['upgrade'][$equip_data->inv_id]['max_level'] = $equip_data->max_level;
+                        }
+                    }
                 }
             }
-            $i++;
         }
+
+        $_SESSION['disassemble_items_data'] = $return;
 
         return null;
     }

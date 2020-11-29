@@ -105,6 +105,7 @@
       <workItem from="1606405940860" duration="21874000" />
       <workItem from="1606664552336" duration="13000" />
       <workItem from="1606665930612" duration="29000" />
+      <workItem from="1606668946488" duration="6699000" />
     </task>
     <servers />
   </component>
@@ -132,10 +133,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598359969567" />
-    <state x="561" y="117" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1597847331559">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="561" y="117" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597847331559" />
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605620494231">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -144,6 +141,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="585" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1599571363411" />
+    <state width="254" height="195" key="DatabaseViewActions_Filter" timestamp="1606672498291">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="254" height="195" key="DatabaseViewActions_Filter/0.0.1920.1040@0.0.1920.1040" timestamp="1606672498291" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1599031298635">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

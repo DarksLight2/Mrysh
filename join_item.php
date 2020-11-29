@@ -21,6 +21,15 @@ if(User::userData() === false)
     <?php
     exit();
 }
+$InventoryItems = Inventory::GetItems(null, 0);
+
+if(GET::check_isset('join_all') === true) {
+
+    Inventory::join_items($InventoryItems->data);
+
+    header('Location: /chest');
+    exit;
+}
 
 $data = GET::get('id');
 
@@ -43,73 +52,11 @@ if($item->count_rows === 1) {
 
     if($equip->result === true && $equip_item_data->current_level < $equip_item_data->max_level) {
 
-        //$_SESSION['item_to_destroy'] = $item_data;
-        //$_SESSION['equip_item']      = $equip_item_data;
-
         if(GET::check_isset('disassemble')) {
 
             Inventory::join_items([$data->data]);
 
-//            if($_SESSION['equip_item']->max_level <= $_SESSION['equip_item']->current_level)
-//                header('Location: /');
-//
-//            if(isset($_SESSION['item_to_destroy']) && isset($_SESSION['equip_item'])) {
-//
-//                if($_SESSION['item_to_destroy']->rune > $_SESSION['equip_item']->rune) {
-//                    $rune = $_SESSION['item_to_destroy']->rune;
-//                } else {
-//                    $rune = $_SESSION['equip_item']->rune;
-//                }
-//
-//                if($_SESSION['item_to_destroy']->sharpening > $_SESSION['equip_item']->sharpening) {
-//                    $sharpening = $_SESSION['item_to_destroy']->sharpening;
-//                } else {
-//                    $sharpening = $_SESSION['equip_item']->sharpening;
-//                }
-//
-//                $exp = $_SESSION['equip_item']->exp + Items::get_exp_to_disassemble($_SESSION['item_to_destroy']->current_level) + $_SESSION['item_to_destroy']->exp;
-//
-//                Items::get_exp_to_disassemble($_SESSION['item_to_destroy']->current_level);
-//
-//                $level_item = $_SESSION['equip_item']->current_level;
-//
-//                if($exp >= Items::get_exp_to_disassemble($_SESSION['equip_item']->current_level + 1)) {
-//                    $level_item = $level_item + 1;
-//                    $exp = $exp - Items::get_exp_to_disassemble($_SESSION['equip_item']->current_level + 1);
-//                    Inventory::change_data($equip->data[0]->id, [
-//                            'strength' => $_SESSION['equip_item']->inv_strength + 2,
-//                            'health'   => $_SESSION['equip_item']->inv_health   + 2,
-//                            'defence'  => $_SESSION['equip_item']->inv_defence  + 2
-//                    ]);
-//                    User::change_data([
-//                            'strength' => User::userData()['strength'] + 2,
-//                            'health'   => User::userData()['health']   + 2,
-//                            'defence'  => User::userData()['defence']  + 2]);
-//                }
-//
-//                Inventory::change_data($equip->data[0]->id, [
-//                        'rune'       => $rune,
-//                        'sharpening' => $sharpening,
-//                        'exp'        => $exp,
-//                        'level_items'=> $level_item.'|'.$_SESSION['equip_item']->max_level
-//
-//                ]);
-//
-//                Inventory::DestroyItem($data->data);
-//
-//                $_SESSION['success_disassemble']['id']          = $equip->data[0]->id;
-//                $_SESSION['success_disassemble']['name']        = $_SESSION['equip_item']->name;
-//                $_SESSION['success_disassemble']['img']         = $_SESSION['equip_item']->img;
-//                $_SESSION['success_disassemble']['quality']     = '<img class="icon" src="/view/image/quality_cloth/'.$_SESSION['equip_item']->quality_number.'.png"> <span class="q'.$_SESSION['equip_item']->quality_number.'">'.$_SESSION['equip_item']->quality_name.' ['.$_SESSION['equip_item']->current_level.'/'.$_SESSION['equip_item']->max_level.']</span>';
-//                $_SESSION['success_disassemble']['level']       = $_SESSION['equip_item']->current_level;
-//                $_SESSION['success_disassemble']['exp']         = Items::get_exp_to_disassemble($_SESSION['item_to_destroy']->current_level);
-//                $_SESSION['success_disassemble']['current_exp'] = $exp;
-//            }
-//
-//            unset($_SESSION['item_to_destroy']);
-//            unset($_SESSION['equip_item']);
-//
-//            header('Location: /chest');
+            header('Location: /chest');
 
         }
 

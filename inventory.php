@@ -34,19 +34,14 @@ if(Inventory::GetAmountItems() > 0 && isset($_GET['wear_item']) && is_numeric($_
 
 $InventoryItems = Inventory::GetItems(null, 0);
 
-if(GET::check_isset('join_all') === true) {
-    Inventory::join_items($InventoryItems->data);
-
-    //header('Location: /chest');
-}
-
 require_once './header.php';
 
 if(isset($_SESSION['disassemble_items_data']) && ! empty($_SESSION['disassemble_items_data'])) {
 
-    foreach ($_SESSION['disassemble_items_data'] as $item_data) {
+    $item_data = $_SESSION['disassemble_items_data'];
 
-     $progress = ($item_data['exp'] / Items::get_exp_to_disassemble($item_data['level'] + 1)) * 100;
+    if( ! isset($item_data['data'])) {
+        $progress = ($item_data['exp'] / Items::get_exp_to_disassemble($item_data['level'] + 1)) * 100;
 ?>
         <div class="hr_g mb2"><div><div></div></div></div>
     <div class="bntf"><div class="nl"><div class="nr cntr lyell lh1 p5 sh">
@@ -74,7 +69,56 @@ if(isset($_SESSION['disassemble_items_data']) && ! empty($_SESSION['disassemble_
                 </div>
             </div></div></div>
 <?php
+    } else {
+        foreach ($item_data as $item_id => $data) {
+?>
+            <div class="bntf"><div class="nl">
+                    <div class="nr cntr lyell lh1 p5 sh">
+                        <div class="inbl small lft">
+                            <?php
+                                if(isset($data['new_level']) && ! empty($data['new_level'])) {
+                            ?>
+                            <div class="win">Получили новый уровень</div>
+                            <div class="clb"></div>
+                            <div class="nwr">
+                                <ul class="mt5 mb5 plr15">
+                                        <?php
+                                                foreach ($data['new_level'] as $item) {
+                                                    echo '<li class="mb2"><a href="/" class="lyell">'.$item['name'].'</a>, <span class="win">'.$item['level'].' уровень</span></li>';
+                                                }
+                                        ?>
+                                </ul>
+                            </div>
+                            <?php
+                                }
+
+                                echo '<div class="clb"></div>';
+
+                                if(isset($data['upgrade']) && ! empty($data['upgrade'])) {
+                            ?>
+                            <div class="mt10"></div>
+                            <div class="win">Улучшенные вещи</div>
+                            <div class="clb"></div>
+                            <div class="nwr">
+                                <ul class="mt5 mb5 plr15">
+                                    <?php
+                                    foreach ($data['upgrade'] as $item) {
+                                        echo '<li class="mb2"><a href="/" class="lyell">'.$item['name'].'</a> [<span class="win">'.$item['level'].'</span>/'.$item['max_level'].']</li>';
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<?php
+        }
     }
+
     unset($_SESSION['disassemble_items_data']);
 }
 
@@ -91,13 +135,13 @@ if(Inventory::GetAmountItems(null, 0) === 0)
 else
 {
 
-
     $ItemNumber = 0;
 
     foreach ($InventoryItems->data as $item_id) {
 
         $item       = Items::get_item_data($item_id->id, true);
         $comparison = Inventory::Comparison($item->inv_id);
+
 ?>
     <div class="bdr cnr bg_blue mb2">
         <div class="wr1">
@@ -161,7 +205,7 @@ else
     Можно улучшать снаряжение разбирая ненужные вещи</div>
 
 <div class="hr_g mb2"><div><div></div></div></div>
-    <a href="?join_all" class="mbtn mb2"><img src="http://144.76.127.94/view/image/icons/slots.png" class="icon"> Разобрать все ненужное </a>
+    <a href="/join_item.php?join_all" class="mbtn mb2"><img src="http://144.76.127.94/view/image/icons/slots.png" class="icon"> Разобрать все ненужное </a>
 <a href="/gear" class="mbtn mb2"><img src="http://144.76.127.94/view/image/icons/slots.png" class="icon"> Снаряжение </a>
 
 <?php

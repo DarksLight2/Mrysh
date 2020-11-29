@@ -27,10 +27,8 @@ class Items
         return false;
     }
 
-    public static function get_item_data($item, $inventory = false, $user_id = null)
+    public static function get_item_data($item, $inventory = false)
     {
-            if($user_id === null)
-                $user_id = User::userData()['id'];
 
             $ActiveRecordsItems     = new ActiveRecords('items');
             $ActiveRecordsInventory = new ActiveRecords('inventory');
@@ -43,11 +41,9 @@ class Items
                 $item_data      = $ActiveRecordsItems->select()    ->where(['id'      => $item])->execute()->data[0];
                 $shop_data      = $ActiveRecordsShop->select()     ->where(['id_item' => $item])->execute();
                 $complect_data  = $ActiveRecordsComplects->select()->where(['id'      => $item_data->complect])->execute()->data[0];
-                $inventory_data = $ActiveRecordsInventory->select()->where(['item'    => $item,
-                    'userID'  => $user_id])->execute();
+                $inventory_data = $ActiveRecordsInventory->select()->where(['item'    => $item])->execute();
             } else {
-                $inventory_data = $ActiveRecordsInventory->select()->where(['id'      => $item,
-                    'userID'  => $user_id])->execute();
+                $inventory_data = $ActiveRecordsInventory->select()->where(['id'      => $item])->execute();
                 $item_data      = $ActiveRecordsItems->select()    ->where(['id'      => $inventory_data->data[0]->item])->execute()->data[0];
                 $shop_data      = $ActiveRecordsShop->select()     ->where(['id_item' => $inventory_data->data[0]->item])->execute();
                 $complect_data  = $ActiveRecordsComplects->select()->where(['id'      => $item_data->complect])->execute()->data[0];
