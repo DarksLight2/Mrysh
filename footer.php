@@ -41,7 +41,7 @@ if(User::userData())
         <div class="ftr_l cntr">
             <div class="ftr_r cntr">
                 <div class="grey1 mb5">
-                    <a href="/settings" class="grey1">Настройки</a> |
+                    <a href="/settings" class="grey1">Настройки</a> | <a href="/chat" class="grey1">Чат</a> |
                     <a class="grey1" href="/online">Онлайн: <?=User::amountUsersOnline()[0]?></a> |
                     <a class="grey1" href="/about">Об игре</a>
                 </div>
