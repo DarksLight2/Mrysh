@@ -54,6 +54,7 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\OSPanel\domains\mrush.loc" />
+      <recent name="C:\OSPanel\domains\mrush.loc\app\classes" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -105,7 +106,11 @@
       <workItem from="1606405940860" duration="21874000" />
       <workItem from="1606664552336" duration="13000" />
       <workItem from="1606665930612" duration="29000" />
-      <workItem from="1606668946488" duration="7132000" />
+      <workItem from="1606668946488" duration="26720000" />
+      <workItem from="1606860899248" duration="10811000" />
+      <workItem from="1607272077229" duration="6388000" />
+      <workItem from="1607294934017" duration="5000" />
+      <workItem from="1607344036778" duration="15776000" />
     </task>
     <servers />
   </component>
@@ -129,14 +134,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="336" y="361" key="#SQL_Dialects/0.0.1920.1040@0.0.1920.1040" timestamp="1606158410756" />
-    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598359969567">
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606693780295">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598359969567" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605620494231">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605620494231" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606693780295" />
     <state x="585" y="88" key="CommitChangelistDialog2" timestamp="1599571363411">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -149,18 +150,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599031298635" />
-    <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1606369650264">
+    <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1607010067610">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="739" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606369650264" />
-    <state x="751" y="242" key="NewPhpClassDialog" timestamp="1606319068579">
+    <state x="739" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607010067610" />
+    <state x="751" y="242" key="NewPhpClassDialog" timestamp="1607346633120">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="751" y="242" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606319068579" />
-    <state x="1016" y="373" key="NewPhpFileDialog" timestamp="1606413406770">
+    <state x="751" y="242" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607346633120" />
+    <state x="1016" y="373" key="NewPhpFileDialog" timestamp="1607368117363">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1016" y="373" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606413406770" />
+    <state x="1016" y="373" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607368117363" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1599571449028">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -173,9 +174,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605713765835" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606416384394">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1607010026475">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606416384394" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607010026475" />
   </component>
 </project>

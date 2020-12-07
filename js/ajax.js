@@ -62,8 +62,6 @@ function getMessages(dialogID, player_id) {
 
             let result = $.parseJSON(data);
 
-            console.log(result)
-
             pagination_messages(result, 10)
         }
     })

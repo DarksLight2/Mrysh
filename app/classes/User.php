@@ -203,11 +203,12 @@ class User
 
     public static function newLevel()
     {
-        if(self::userData()['exp'] >= self::levels())
-        {
-            DataBase::query('UPDATE `users` SET `level` = `level` + 1, `gold` = `gold` + 5, `exp` = `exp` - ? WHERE `id` = ?', [self::levels(), self::userData()['id']]);
+        if(self::levels() !== 0) {
+            if (self::userData()['exp'] >= self::levels()) {
+                DataBase::query('UPDATE `users` SET `level` = `level` + 1, `gold` = `gold` + 5, `exp` = `exp` - ? WHERE `id` = ?', [self::levels(), self::userData()['id']]);
 
-            $_SESSION['newLevel'] = 1;
+                $_SESSION['newLevel'] = 1;
+            }
         }
 
         return true;
@@ -241,7 +242,9 @@ class User
 
         if($UserData['exp'] > 0)
         {
-            $Return = floor( 100 / (self::levels() / $UserData['exp']));
+            if(self::levels() !== 0) {
+                $Return = floor(100 / (self::levels() / $UserData['exp']));
+            }
         }
 
         if($Return > 100)

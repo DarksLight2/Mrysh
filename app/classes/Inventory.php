@@ -66,7 +66,7 @@ class Inventory
                 'id_inv'  => $item->data[0]->id
             ];
         else
-            return (object)['result'  => false];
+            return (object)['result' => false];
 
     }
 

@@ -62,7 +62,7 @@ if($UserData)
         <table class="small yell h25 bgc_prg"><tbody><tr>
                 <td class="va_m plr10 nwr"><img src="http://144.76.127.94/view/image/icons/up.png" class="va_t" height="16" width="16" alt=""><?=$UserData['level']?></td>
                 <td class="va_m w100"><div class="prg-bar"><div class="prg-blue" style="width: <?=User::progressExp()?>%"></div></div></td>
-                <td class="va_m plr10"><?=User::progressExp()?>%</td>
+                <td class="va_m plr10" id="test" onclick="mp3.play();"><?=User::progressExp()?>%</td>
             </tr></tbody></table>
         <div class="hr_g mb2"><div><div></div></div></div></div>
     <div class="ribbon mb2"><div class="rl"><div class="rr">
@@ -81,6 +81,7 @@ if($UserData)
         unset($_SESSION['newLevel']);
     }
 }
+
 if(User::userData() !== false && User::userData()['level'] >= 3 && User::userData()['login'] == 'Новобранец')
 {
 ?>

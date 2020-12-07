@@ -13,3 +13,21 @@ function send_to_user(user_id, user_login) {
     to_user.val(user_id);
     box.val(box_text);
 }
+
+let old_title = document.title;
+
+function change_title(text) {
+
+    if(text === null) {
+        document.title = old_title;
+    } else {
+
+        setInterval(function () {
+            document.title = text;
+
+            setTimeout(function () {
+                document.title = old_title;
+            }, 1000)
+        }, 2000)
+    }
+}

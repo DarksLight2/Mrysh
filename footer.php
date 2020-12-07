@@ -65,10 +65,8 @@ if(User::userData())
 
     <script>
             setInterval(function (){
-                if($('#mail_counter_count').text() === '0') {
-                    check_new_messages();
-                }
-            }, 1000)
+                check_new_messages();
+            }, 5000)
     </script>
 <?php
 }

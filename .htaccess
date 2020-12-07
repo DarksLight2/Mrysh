@@ -24,7 +24,8 @@ RewriteRule ^post_message/?$ /post_messages.php [L,QSA]
 RewriteRule ^join_item/?$ /join_item.php [L,QSA]
 RewriteRule ^viewItem/([0-9]*)/?$ /items.php?viewItem=$1 [L,QSA]
 RewriteRule ^view_player_item/?$ /view_player_item.php [L,QSA]
-
+RewriteRule ^sharpening/?$ /sharpening.php [L,QSA]
+RewriteRule ^runes/?$ /runes.php [L,QSA]
 RewriteRule ^lair/?$ /lair.php [L,QSA]
 RewriteRule ^travel/?$ /travel.php [L,QSA]
 #Handles

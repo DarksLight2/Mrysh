@@ -24,5 +24,6 @@ $title = 'Магазин';
 require_once './header.php';
 
 echo Shop::ShowMainCategories('Снаряжение','лучшее оружие и доспехи', 'cloth', 'set_quality', ['type' => 'level', 'value' => 0]);
+echo Shop::ShowMainCategories('Торговец рунами','установка рун на вещи', 'runes', 'runes', ['type' => 'level', 'value' => 0]);
 
 require_once './footer.php';
